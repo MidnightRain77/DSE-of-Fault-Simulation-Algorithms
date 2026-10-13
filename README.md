@@ -111,11 +111,11 @@ Upon launching, choose between:
 
 | Benchmark Circuit | Total Faults | Collapsed Faults | Fault Coverage | PPFS Speedup vs Serial | Reverse Compaction Ratio |
 |---|---|---|---|---|---|
-| **c17** | 22 | 16 | 100.00% | 1.87× | 128 → 4 vectors (96.9% reduction) |
+| **c17** | 22 | 16 | 100.00% | 2.05× | 128 → 4 vectors (96.9% reduction) |
 | **4-Bit Comparator** | 108 | 72 | 100.00% | 8.87× | 256 → 13 vectors (94.9% reduction) |
-| **6-Bit ALU** | 358 | 246 | 99.19% | 18.77× | 512 → 38 vectors (92.6% reduction) |
-| **8-Bit Barrel Shifter** | 246 | 168 | 94.64% | 12.16× | 512 → 36 vectors (93.0% reduction) |
-| **8-Bit Carry Select Adder**| 538 | 362 | 96.69% | 15.65× | 1024 → 47 vectors (95.4% reduction) |
+| **6-Bit ALU** | 358 | 246 | 99.19% | 17.52× | 512 → 38 vectors (92.6% reduction) |
+| **8-Bit Barrel Shifter** | 342 | 229 | 90.83% | 14.09× | 2048 → 32 vectors (98.4% reduction) |
+| **8-Bit Carry Select Adder**| 374 | 294 | 99.66% | 5.38× | 2048 → 20 vectors (99.0% reduction) |
 
 ### Key Takeaways:
 1. **PPFS Superiority on Combinational Circuits**: With 64-bit word packing, PPFS consistently achieves speedups exceeding **12× – 18×** over Serial simulation due to the bitwise parallelism matching modern CPU register widths.
