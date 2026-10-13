@@ -152,6 +152,16 @@ void ConcurrentFaultSim::propagateFaults(const std::vector<int>& goodVals,
                    gt == GateType::OR  || gt == GateType::NOR) {
             int ctrlVal = (gt == GateType::AND || gt == GateType::NAND) ? 0 : 1;
 
+            // If any constant input is controlling (e.g. 1'b0 on AND),
+            // no fault can flip it, so no input fault can ever propagate through.
+            bool permanentlyBlocked = false;
+            for (int inId : inIds) {
+                if ((inId == -1 && ctrlVal == 0) || (inId == -2 && ctrlVal == 1)) {
+                    permanentlyBlocked = true;
+                    break;
+                }
+            }
+
             // Check if any input has controlling good value
             bool hasCtrlInput = false;
             for (int inId : inIds) {
@@ -162,7 +172,9 @@ void ConcurrentFaultSim::propagateFaults(const std::vector<int>& goodVals,
                 }
             }
 
-            if (!hasCtrlInput) {
+            if (permanentlyBlocked) {
+                // Gate output is permanently blocked by constant controlling input
+            } else if (!hasCtrlInput) {
                 // Pass-through state: ALL inputs are non-controlling.
                 // Any input flipping to controlling will flip the output.
                 for (int inId : inIds) {
